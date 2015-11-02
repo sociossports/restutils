@@ -5,10 +5,10 @@ from django.conf import settings
 from django.core.signals import got_request_exception
 from django.core.exceptions import ObjectDoesNotExist
 
-from .hal import Representation
-from .exceptions import ApiError, BadRequest, NotFound
-from .lib.json_as_html import create_html
-from .lib.content_negotiation import best_content_type
+from restutils.hal import Representation
+from restutils.exceptions import ApiError, BadRequest, NotFound
+from restutils.lib.json_as_html import create_html
+from restutils.lib.content_negotiation import best_content_type
 
 
 def _decode_data(request):

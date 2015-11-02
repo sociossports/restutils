@@ -4,7 +4,7 @@ from django.conf import settings
 from django.core.urlresolvers import resolve
 from django.http import Http404
 
-from .exceptions import BadRequest
+from restutils.exceptions import BadRequest
 
 
 def iso_date(date):
