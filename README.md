@@ -35,12 +35,38 @@ class PersonView(RoutableResourceMixin):
         pass
 
     def show(self, request, person_id):
-        # return an HTTP repsonse with a single Person
+        # return an HTTP response with a single Person
         pass
 
 
 person_view = PersonView()
 ```
+
+And add routes to your urls.py like this:
+
+```
+#!python
+from xxx.xxx import person_view
+
+urlpatterns = patterns('',
+    url(r'^persons/(?P<person_id>\d+)/',
+        include(person_view.item_urls(prefix='person')),
+    url(r'^persons/',
+        include(person_view.list_urls(prefix='person')),
+)
+
+```
+To link the methods to the routes. A class that implements the RoutableResourceMixin can use the following methods:
+
+|Method name|HTTP method|URL function|Purpose|
+|---|---|---|---|
+|index|GET|list_urls|   |
+|show|GET|item_urls|   |
+|create|POST|list_urls|   |
+|update|PUT|item_urls|   |
+|edit|GET|item_urls|   |
+|new|GET|list_urls|   |
+|delete|GET|item_urls|   |
 
 
 
