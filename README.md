@@ -11,7 +11,13 @@
 ## Installation ##
 
 Add this line to your requirements.txt file:
+
+```
+#!pip
+
 hg+https://bitbucket.org/plac/restutils/@1.0#egg=restutils
+```
+
 
 ## Usage ##
 
