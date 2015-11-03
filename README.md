@@ -79,14 +79,14 @@ class PersonView(RoutableResourceMixin):
     def get_list_handlers(self):
         # Add a PUT operation to the list url to replace the whole list at once
         handlers = super().get_list_handlers()
-        handlers['replace_all'] = {'method': 'PUT', 'name': 'list'}
+        handlers['replace_all'] = {'method': 'PUT'}
         return handlers
 
     def replace_all(self, request):
         pass
 
 ```
-The "name" key should be set to either 'list' for list-type urls (when overriding get_list_handlers) and to 'item' for item-type urls (when overriding get_item_handlers). If you do not want to route an additional HTTP method through the list or item urls, but want to route a new view method to a different url (for example to implement the "overloaded POST" anti-pattern), you can just use normal Django routing for that:
+If you do not want to route an additional HTTP method through the list or item urls, but want to route a new view method to a different url (for example to implement the "overloaded POST" anti-pattern), you can just use normal Django routing for that:
 
 ```
 #!python
