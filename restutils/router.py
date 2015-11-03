@@ -66,33 +66,33 @@ class RouteSet(object):
 
 class RoutableResourceMixin(object):
 
-    def _create_routeset(self, handlers, name_prefix):
+    def _create_routeset(self, handlers, default_name, name_prefix):
         routeset = RouteSet(name_prefix)
         for handler, data in handlers.items():
             if hasattr(self, handler):
-                routeset.add_route(data['name'], data['method'],
+                routeset.add_route(data.get('name', default_name), data['method'],
                                    getattr(self, handler))
         return routeset
 
     def get_list_handlers(self):
         return {
-            'create': {'method': 'POST', 'name': 'list'},
-            'index': {'method': 'GET', 'name': 'list'},
+            'create': {'method': 'POST'},
+            'index': {'method': 'GET'},
             'new': {'method': 'GET', 'name': 'create-form'},
         }
 
     def get_item_handlers(self):
         return {
             'edit': {'method': 'GET', 'name': 'edit-form'},
-            'show': {'method': 'GET', 'name': 'item'},
-            'delete': {'method': 'DELETE', 'name': 'item'},
-            'update': {'method': 'PUT', 'name': 'item'},
+            'show': {'method': 'GET'},
+            'delete': {'method': 'DELETE'},
+            'update': {'method': 'PUT'},
         }
 
     def list_urls(self, prefix=None):
         handlers = self.get_list_handlers()
-        return self._create_routeset(handlers, prefix).urls
+        return self._create_routeset(handlers, 'list', prefix).urls
 
     def item_urls(self, prefix=None):
         handlers = self.get_item_handlers()
-        return self._create_routeset(handlers, prefix).urls
+        return self._create_routeset(handlers, 'item', prefix).urls
