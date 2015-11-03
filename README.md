@@ -21,6 +21,26 @@ hg+https://bitbucket.org/plac/restutils/@1.0#egg=restutils
 
 ### Routing ###
 
+Create a class in your view:
+
+```
+#!python
+
+from restutils.router import RoutableResourceMixin
+
+class PersonView(RoutableResourceMixin):
+
+    def index(self, request):
+        # return an HTTP response with a list of Persons
+        pass
+
+
+
+person_view = PersonView()
+```
+
+
+
 ### HAL representation ###
 
 ### Returning json responses ###
