@@ -56,7 +56,7 @@ urlpatterns = patterns('',
 )
 
 ```
-This will automatically generate urls for the list-based view of your resource (/persons/) and the item-based view of your resource (/persons/1) that correspond to the methods that you implemented in the view class. A class that implements the RoutableResourceMixin can use the following methods:
+This will automatically generate urls for the list-based methods of your resource (/persons/) and the item-based methods of your resource (/persons/1) that correspond to the methods that you implemented in the view class. A class that implements the RoutableResourceMixin can use the following methods:
 
 |Method name|HTTP method|in URL patterns|URL name (for reversing)|URL example|Purpose|
 |---|---|---|---|---|---|
