@@ -68,6 +68,25 @@ This will automatically generate urls for the list-based methods of your resourc
 |new|GET|/persons/new/|list_urls()|[prefix]-create-form|The form to create a new item|
 |delete|GET|/persons/1|item_urls()|[prefix]-item|Delete an item|
 
+To route an additional HTTP method to either the list_urls() or the item_urls(), you can override the corresponding method of the view class that implements RoutableResourceMixin: get_list_handlers or get_item_handlers as follows:
+
+```
+#!python
+from restutils.router import RoutableResourceMixin
+
+class PersonView(RoutableResourceMixin):
+
+    def get_list_handlers(self):
+        # Add a PUT operation to the list url to replace the whole list at once
+        handlers = super().get_list_handlers()
+        handlers['replace_all'] = {'method': 'PUT', 'name': 'list'}
+        return handlers
+
+    def replace_all(self, request):
+        pass
+
+```
+The "name" key should be set to either 'list' for list-type urls (when overriding get_list_handlers) and to 'item' for item-type urls (when overriding get_item_handlers). If you do not want to route an additional HTTP method through the list or item urls, but want to route a new view method to a different url (for example to implement the "overloaded POST" anti-pattern), you can just use normal Django routing for that:
 
 
 ### HAL representation ###
