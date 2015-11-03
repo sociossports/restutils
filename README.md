@@ -61,12 +61,12 @@ This will automatically generate urls for the list-based methods of your resourc
 |Class method|Corresponds to HTTP method|on URL example|in URL patterns|URL name (for reversing)|Purpose|
 |---|---|---|---|---|---|
 |index|GET|/persons/|list_urls()|[prefix]-list|Show a list of all items|
-|show|GET|/persons/1|item_urls()|[prefix]-item|Show the details of a single item|
+|show|GET|/persons/1/|item_urls()|[prefix]-item|Show the details of a single item|
 |create|POST|/persons/|list_urls()|[prefix]-list|Create a new item|
-|update|PUT|/persons/1|item_urls()|[prefix]-item|Update an existing item|
+|update|PUT|/persons/1/|item_urls()|[prefix]-item|Update an existing item|
 |edit|GET|/persons/1/edit/|item_urls()|[prefix]-edit-form|The edit form to update an item|
 |new|GET|/persons/new/|list_urls()|[prefix]-create-form|The form to create a new item|
-|delete|GET|/persons/1|item_urls()|[prefix]-item|Delete an item|
+|delete|GET|/persons/1/|item_urls()|[prefix]-item|Delete an item|
 
 To route an additional HTTP method to either the list_urls() or the item_urls(), you can override the corresponding method of the view class that implements RoutableResourceMixin: get_list_handlers or get_item_handlers as follows:
 
