@@ -56,7 +56,7 @@ urlpatterns = patterns('',
 )
 
 ```
-This will automatically generate urls for the list-based methods of your resource (/persons/) and the item-based methods of your resource (/persons/1) that correspond to the methods that you implemented in the view class. If you only implement item-based methods in your class, you don't need to add a route for the list_urls and vice-versa. A class that implements the RoutableResourceMixin can use the following methods:
+This will automatically generate urls for the list-based methods of your resource (/persons/) and the item-based methods of your resource (/persons/1/) that correspond to the methods that you implemented in the view class. If you only implement item-based methods in your class, you don't need to add a route for the list_urls and vice-versa. A class that implements the RoutableResourceMixin can use the following methods:
 
 |Class method|Corresponds to HTTP method|on URL example|in URL patterns|URL name (for reversing)|Purpose|
 |---|---|---|---|---|---|
