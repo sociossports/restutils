@@ -98,7 +98,7 @@ class PersonView(RoutableResourceMixin):
         # do something weird to the person
         pass
 ```
-
+urls.py:
 ```
 #!python
 from xxx.xxx import person_view
