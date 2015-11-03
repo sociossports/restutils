@@ -56,17 +56,17 @@ urlpatterns = patterns('',
 )
 
 ```
-This will automatically generate urls for the list-based methods of your resource (/persons/) and the item-based methods of your resource (/persons/1) that correspond to the methods that you implemented in the view class. A class that implements the RoutableResourceMixin can use the following methods:
+This will automatically generate urls for the list-based methods of your resource (/persons/) and the item-based methods of your resource (/persons/1) that correspond to the methods that you implemented in the view class. If you only implement item-based methods in your class, you don't need to add a route for the list_urls and vice-versa. A class that implements the RoutableResourceMixin can use the following methods:
 
-|Method name|HTTP method|in URL patterns|URL name (for reversing)|URL example|Purpose|
+|Class method|Corresponds to HTTP method|on URL example|in URL patterns|URL name (for reversing)|Purpose|
 |---|---|---|---|---|---|
-|index|GET|list_urls()|[prefix]-list|/persons/|Show a list of all items|
-|show|GET|item_urls()|[prefix]-item|/persons/1|Show the details of a single item|
-|create|POST|list_urls()|[prefix]-list|/persons/|Create a new item|
-|update|PUT|item_urls()|[prefix]-item|/persons/1|Update an existing item|
-|edit|GET|item_urls()|[prefix]-edit-form|/persons/1/edit/|The edit form to update an item|
-|new|GET|list_urls()|[prefix]-create-form|/persons/new/|The form to create a new item|
-|delete|GET|item_urls()|[prefix]-item|/persons/1|Delete an item|
+|index|GET|/persons/|list_urls()|[prefix]-list|Show a list of all items|
+|show|GET|/persons/1|item_urls()|[prefix]-item|Show the details of a single item|
+|create|POST|/persons/|list_urls()|[prefix]-list|Create a new item|
+|update|PUT|/persons/1|item_urls()|[prefix]-item|Update an existing item|
+|edit|GET|/persons/1/edit/|item_urls()|[prefix]-edit-form|The edit form to update an item|
+|new|GET|/persons/new/|list_urls()|[prefix]-create-form|The form to create a new item|
+|delete|GET|/persons/1|item_urls()|[prefix]-item|Delete an item|
 
 
 
