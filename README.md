@@ -88,6 +88,27 @@ class PersonView(RoutableResourceMixin):
 ```
 The "name" key should be set to either 'list' for list-type urls (when overriding get_list_handlers) and to 'item' for item-type urls (when overriding get_item_handlers). If you do not want to route an additional HTTP method through the list or item urls, but want to route a new view method to a different url (for example to implement the "overloaded POST" anti-pattern), you can just use normal Django routing for that:
 
+```
+#!python
+from restutils.router import RoutableResourceMixin
+
+class PersonView(RoutableResourceMixin):
+
+    def do_something(self, request, person_id):
+        # do something weird to the person
+        pass
+```
+
+```
+#!python
+from xxx.xxx import person_view
+
+urlpatterns = patterns('',
+    url(r'^persons/(?P<person_id>\d+)/do_something/',
+        person_view.do_something),
+)
+
+```
 
 ### HAL representation ###
 
