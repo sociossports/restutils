@@ -21,7 +21,7 @@ hg+https://bitbucket.org/plac/restutils/@1.0#egg=restutils
 
 ### Routing ###
 
-Create a class in your view:
+Provides Rails-like routing for REST resources. Create a view class that will serve your resource representations:
 
 ```
 #!python
@@ -56,17 +56,17 @@ urlpatterns = patterns('',
 )
 
 ```
-To link the methods to the routes. A class that implements the RoutableResourceMixin can use the following methods:
+This will automatically generate urls for the list-based view of your resource (/persons/) and the item-based view of your resource (/persons/1) that correspond to the methods that you implemented in the view class. A class that implements the RoutableResourceMixin can use the following methods:
 
-|Method name|HTTP method|URL function|Purpose|
-|---|---|---|---|
-|index|GET|list_urls|   |
-|show|GET|item_urls|   |
-|create|POST|list_urls|   |
-|update|PUT|item_urls|   |
-|edit|GET|item_urls|   |
-|new|GET|list_urls|   |
-|delete|GET|item_urls|   |
+|Method name|HTTP method|URL function|URL name|URL example|Purpose|
+|---|---|---|---|---|---|
+|index|GET|list_urls|[prefix]-list|/persons/|Show a list of all items|
+|show|GET|item_urls|[prefix]-item|/persons/1|Show the details of a single item|
+|create|POST|list_urls|[prefix]-list|/persons/|Create a new item|
+|update|PUT|item_urls|[prefix]-item|/persons/1|Update an existing item|
+|edit|GET|item_urls|[prefix]-edit-form|/persons/1/edit/|The edit form to update an item|
+|new|GET|list_urls|[prefix]-create-form|/persons/new/|The form to create a new item|
+|delete|GET|item_urls|[prefix]-item|/persons/1|Delete an item|
 
 
 
