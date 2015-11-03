@@ -34,6 +34,9 @@ class PersonView(RoutableResourceMixin):
         # return an HTTP response with a list of Persons
         pass
 
+    def show(self, request, person_id):
+        # return an HTTP repsonse with a single Person
+        pass
 
 
 person_view = PersonView()
