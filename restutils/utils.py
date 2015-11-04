@@ -1,23 +1,19 @@
 import json
-import pytz
 from urllib.parse import urlparse
 
 from django.conf import settings
 from django.core.urlresolvers import resolve
 from django.http import Http404
+from django.utils.timezone import is_naive, make_aware
 
 from restutils.exceptions import BadRequest
 
 
 def iso_date(date):
     if date is not None:
-        # http://stackoverflow.com/questions/5802108/how-to-check-if-a-datetime-object-is-localized-with-pytz
-        is_naive = date.tzinfo is None or date.tzinfo.utcoffset(date) is None
-        if is_naive:
-            if hasattr(settings, 'TIME_ZONE'):
-                date = pytz.timezone(settings.TIME_ZONE).localize(date)
-            else:
-                return date.strftime("%Y-%m-%dT%H:%M:%SZ")        
+        if is_naive(date):
+            date = make_aware(date)
+	    #return date.strftime("%Y-%m-%dT%H:%M:%SZ")        
         return date.strftime("%Y-%m-%dT%H:%M:%S%z")
 
 
