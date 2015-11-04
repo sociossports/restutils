@@ -1,6 +1,8 @@
 import json
 import collections
 
+from restutils.lib.uri_tools import full_uri
+
 # http://www.iana.org/assignments/link-relations/link-relations.xhtml
 default_titles = {
     'profile': 'Documentation for this resource',
@@ -66,14 +68,9 @@ class Representation(object):
         filter_keys = get_resolver(None).reverse_dict[route_name][0][0][1]
         filtered_kwargs = {filter_key:self.kwargs.get(filter_key)
                            for filter_key in filter_keys}
-        return self.full_uri(
+        return full_uri(
+            self.request,
             django_reverse(route_name, kwargs=filtered_kwargs))
-
-    def full_uri(self, path):
-        if path is None:
-            return None
-        return self.request.build_absolute_uri(path).replace(
-            '%7B','{').replace('%7D','}')
 
     def has_curie(self, name):
         links = self.data.get('_links')
@@ -90,7 +87,7 @@ class Representation(object):
     def add_curie(self, name, href):
         if not self.has_curie(name):
             self.add_link_list("curies", Link(
-                href=self.full_uri(href),
+                href=full_uri(self.request, href),
                 name=name,
                 title="Compact URI for namespacing"))
 
@@ -105,7 +102,7 @@ class Representation(object):
             link_data = link_object.data
         else:
             link_data = {'href': link_object}
-        link_data['href'] = self.full_uri(link_data['href'])
+        link_data['href'] = full_uri(self.request, link_data['href'])
         return link_data
 
     def _set_link(self, rel, value):

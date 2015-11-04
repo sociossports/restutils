@@ -26,3 +26,11 @@ def extract_from_uri(uri, fields):
         return {field: parsed_path.kwargs[field] for field in fields}
     else:
         return parsed_path.kwargs[fields]
+
+
+def decode_json_data(request):
+    try:
+        parsed_body = json.loads(request.body.decode())
+    except:
+        raise BadRequest("Error trying to parse body as JSON")
+    return parsed_body
