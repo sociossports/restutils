@@ -111,8 +111,61 @@ urlpatterns = patterns('',
 ```
 
 ### HAL representation ###
+JSON serializable hypermedia resource representation in the [HAL](http://stateless.co/hal_specification.html) format.
+
+```
+#!python
+from django.http import HttpResponse
+
+from restutils.hal import Representation, Link
+
+def view(request):
+    r = new Representation(request)
+    r.add_property('name', 'my name')
+    r.add_link('self', Link(href='http://....', title='Self link'))
+    r.add_link('parent', 'http://...')
+    r.add_object('cr:item', other_representation)
+    return HttpResponse(r.to_json, content_type='application/hal+json')
+```
 
 ### Returning json responses ###
+Returning json HttpResponse from views is easier with the @json_view decorator:
+
+```
+#!python
+from restutils.decorators import json_view
+
+@json_view
+def view(request):
+   return {'property_1': 'some value', 'property_2': 42}
+```
+If the returned object has a to_json() method, this will be used for serialization. If it doesn't, then the decorator will feed the returned object to json.dumps(). By default, the http response code is 200. If you want something else, return the response code as the second element:
+
+```
+#!python
+from restutils.decorators import json_view
+
+@json_view
+def view(request):
+   return some_data, 201
+```
+To combine decorators, for example for caching, you can use django.utils.decorators.method_decorator:
+
+```
+#!python
+
+from django.views.decorators.cache import cache_page
+from django.utils.decorators import method_decorator
+
+from restutils.decorators import json_view
+
+@method_decorator(cache_page(60))
+@json_view
+def view(request):
+   return some_data
+```
+
+
 
 ### Processing POST/PUT data ###
 
