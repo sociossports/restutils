@@ -204,6 +204,31 @@ def view(request):
 
 
 ### "Magic" url reversing ###
+When reversing a django route, you need to fill in all the kwargs. This can get very verbose: reverse('route-name', kwargs={'person_id':12, 'profile_id':34, 'pet_id':56}). The restutils.magicreverse.MagicReverser class makes this easier by already filling in the kwargs from the "current" url:
+
+```
+#!python
+from restutils.magicreverse import MagicReverser
+
+# handles the url /view/person/12/
+def view(request, person_id):
+    reverser = MagicReverser(request):
+    # reverses the route for /view/person/12/profile/34/pet/56
+    # note how you can leave out the person_id:
+    url = reverser.rev('route-name', profile_id=34, pet_id=56)
+
+```
+You can also use the restutils.middleware.MagicReverseMiddleware. It adds a "rev" method to the request that does the same "magic" reversion:
+
+```
+#!python
+# handles the url /view/person/12/
+def view(request, person_id):
+    # reverses the route for /view/person/12/profile/34/pet/56
+    # note how you can leave out the person_id:
+    url = request.rev('route-name', profile_id=34, pet_id=56)
+
+```
 
 
 
