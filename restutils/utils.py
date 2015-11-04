@@ -13,7 +13,6 @@ def iso_date(date):
     if date is not None:
         if is_naive(date):
             date = make_aware(date)
-	    #return date.strftime("%Y-%m-%dT%H:%M:%SZ")        
         return date.strftime("%Y-%m-%dT%H:%M:%S%z")
 
 
