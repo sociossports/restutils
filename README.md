@@ -195,7 +195,7 @@ from restutils.exceptions import BadRequest
 def view(request):
     if user_did_something_wrong:
         raise BadRequest('You did something wrong')
-    elsif we_did_something_wrong:
+    elif we_did_something_wrong:
         raise ApiError('We did something wrong', 500)
     else:
         raise NotFound()
