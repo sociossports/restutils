@@ -164,10 +164,23 @@ from restutils.decorators import json_view
 def view(request):
    return some_data
 ```
+### Processing POST/PUT data in json format ###
 
+```
+#!python
 
+from restutils.utils import decode_json_data
 
-### Processing POST/PUT data ###
+def process_post(request):
+    data = decode_json_data(request)
+    person_id = data['person_id']
+```
+You can also use the restutils.middleware.RequestDataMiddleware to add a "data" property to the request. This property will contain the decoded json payload. Both solutions (decode_json_data and the RequestDataMiddleware) will throw a restutils.exceptions.BadRequest exception when the json payload could not be decoded.
+```
+#!python
+def process_post(request):
+    person_id = request.data['person_id']
+```
 
 ### Returning errors ###
 
