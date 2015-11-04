@@ -123,9 +123,18 @@ def view(request):
     r = new Representation(request)
     r.add_property('name', 'my name')
     r.add_link('self', Link(href='http://....', title='Self link'))
+    # shortcut - when you pass a string instead of a Link object, the string is used as link href:
     r.add_link('parent', 'http://...')
     r.add_object('cr:item', other_representation)
     return HttpResponse(r.to_json(), content_type='application/hal+json')
+```
+You can define curies by hand using the add_curie method, but you can also define a subclass of the Representation that predefines them. A curies definition will then automatically be added when you use one in a link relation:
+```
+#!python
+from restutils.hal import Representation
+
+class MyRepresentation(Representation):
+    curies = {'cr': '/static/docs/{rel}.html'}
 ```
 
 ### Returning json responses ###
