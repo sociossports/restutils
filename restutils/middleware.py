@@ -1,5 +1,3 @@
-import json
-
 from django.http import HttpResponse
 from django.conf import settings
 from django.core.signals import got_request_exception
