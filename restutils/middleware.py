@@ -57,7 +57,8 @@ class VndErrorMiddleware(object):
         if exception.help is not None:
             doc.add_link('help', exception.help)
 
-        # Make sure the exception signal is fired for Sentry
+        # Make sure the exception signal is fired for Sentry, but don't
+        # bother it with anything that's not a server error
         if exception.status >= 500:
             got_request_exception.send(sender=self, request=request)
 

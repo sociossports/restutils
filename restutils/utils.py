@@ -9,9 +9,13 @@ from restutils.exceptions import BadRequest
 
 
 def iso_date(date):
-    if not date:
-        return None
-    return date.strftime("%Y-%m-%dT%H:%M:%SZ")
+    if date is not None:
+        # http://stackoverflow.com/questions/5802108/how-to-check-if-a-datetime-object-is-localized-with-pytz
+        is_naive = date.tzinfo is None or date.tzinfo.utcoffset(d) is None
+        if is_naive:
+            return date.strftime("%Y-%m-%dT%H:%M:%SZ")
+        else:
+            return date.strftime("%Y-%m-%dT%H:%M:%S%z")
 
 
 def extract_from_uri(uri, fields):
