@@ -229,9 +229,29 @@ def view(request, person_id):
     url = request.rev('route-name', profile_id=34, pet_id=56)
 
 ```
-
-
-
 ### Parsing resource URLS ###
+To parse a URI and extract the kwargs, use restutils.utils.extract_from_uri. For example, consider the following url route:
+
+```
+#!python
+
+urlpatterns = patterns('',
+    url(r'^persons/(?P<person_id>\d+)/profiles/(?P<profile_id>\d+)/',
+        view_function),
+)
+
+```
+Then you can extract the kwargs from a URI string as follows:
+```
+#!python
+from restutils.utils import extract_from_uri
+
+extract_from_uri('http://api.example.com/persons/12/profiles/34', ['person_id', 'profile_id'])
+# => {'person_id': 12, 'profile_id': 34}
+
+extract_from_uri('http://api.example.com/persons/12/profiles/34', 'person_id')
+# => 12
+```
+Note that the function returns a dict when multiple kwargs are requested, but only the kwarg value when a single kwarg is requested.
 
 ### Returning ISO dates ###
