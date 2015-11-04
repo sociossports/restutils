@@ -1,3 +1,4 @@
+import json
 from urllib.parse import urlparse
 
 from django.conf import settings
@@ -31,6 +32,6 @@ def extract_from_uri(uri, fields):
 def decode_json_data(request):
     try:
         parsed_body = json.loads(request.body.decode())
-    except:
+    except ValueError:
         raise BadRequest("Error trying to parse body as JSON")
     return parsed_body
