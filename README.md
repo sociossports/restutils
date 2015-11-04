@@ -246,12 +246,22 @@ Then you can extract the kwargs from a URI string as follows:
 #!python
 from restutils.utils import extract_from_uri
 
-extract_from_uri('http://api.example.com/persons/12/profiles/34', ['person_id', 'profile_id'])
+extract_from_uri('http://api.example.com/persons/12/profiles/34/', ['person_id', 'profile_id'])
 # => {'person_id': 12, 'profile_id': 34}
 
-extract_from_uri('http://api.example.com/persons/12/profiles/34', 'person_id')
+extract_from_uri('http://api.example.com/persons/12/profiles/34/', 'person_id')
 # => 12
 ```
 Note that the function returns a dict when multiple kwargs are requested, but only the kwarg value when a single kwarg is requested.
 
 ### Returning ISO dates ###
+Convert a datetime to an ISO 8601 date string (warning: this naively assumes that the date is in UTC format!):
+
+```
+#!python
+from datetime import datetime
+
+from restutils.utils import iso_date
+
+iso_date(datetime.now())
+```
