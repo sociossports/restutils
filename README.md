@@ -185,7 +185,23 @@ Both solutions (decode_json_data and the RequestDataMiddleware) will throw a res
 
 ### Returning errors ###
 
-The restutils.middleware.VndErrorMiddleware allows you to raise exceptions that are then translated to a [vnd.error](https://github.com/blongden/vnd.error) response and shown to the client. It will catch exceptions that are derived from restutils.exceptions.ApiError. The restutils.exceptions module contains a few ready-made exceptions that all extend restutils.exceptions.ApiError: BadRequest (returns status 400), Forbidden (returns status 403) and NotFound (returns status 404). Unhandled ObjectDoesNotExist exceptions from the Django ORM also also caught and converted to restutils.exceptions.NotFound.
+The restutils.middleware.VndErrorMiddleware allows you to raise exceptions that are then translated to a [vnd.error](https://github.com/blongden/vnd.error) response and shown to the client. It will catch exceptions that are derived from restutils.exceptions.ApiError. The restutils.exceptions module contains a few ready-made exceptions that all extend restutils.exceptions.ApiError: BadRequest (returns by default status 400), Forbidden (returns by default status 403) and NotFound (returns by default status 404). Unhandled ObjectDoesNotExist exceptions from the Django ORM also also caught and converted to restutils.exceptions.NotFound. Messages and status codes are optional (they are set to sensible defaults), but can be overridden.
+
+```
+#!python
+
+from restutils.exceptions import BadRequest
+
+def view(request):
+    if user_did_something_wrong:
+        raise BadRequest('You did something wrong')
+    elsif we_did_something_wrong:
+        raise ApiError('We did something wrong', 500)
+    else:
+        raise NotFound()
+```
+
+
 
 ### "Magic" url reversing ###
 
