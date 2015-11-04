@@ -129,7 +129,7 @@ def view(request):
 ```
 
 ### Returning json responses ###
-Returning json HttpResponse from views is easier with the @json_view decorator:
+Returning a json HttpResponse from a view is easier with the @json_view decorator:
 
 ```
 #!python
