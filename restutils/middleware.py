@@ -6,22 +6,16 @@ from django.core.signals import got_request_exception
 from django.core.exceptions import ObjectDoesNotExist
 
 from restutils.hal import Representation
-from restutils.exceptions import ApiError, BadRequest, NotFound
+from restutils.exceptions import ApiError, NotFound
 from restutils.lib.json_as_html import create_html
 from restutils.lib.content_negotiation import best_content_type
-
-
-def _decode_data(request):
-    try:
-        parsed_body = json.loads(request.body.decode())
-    except:
-        raise BadRequest("Error trying to parse body as JSON")
-    return parsed_body
+from restutils.magicreverse import MagicReverser
+from restutils.utils import decode_json_data
 
 
 def data(self):
     if not hasattr(self, '_data_dict'):
-        self._data_dict = _decode_data(self)
+        self._data_dict = decode_json_data(self)
     return self._data_dict
 
 
@@ -30,6 +24,14 @@ class RequestDataMiddleware(object):
     def process_request(self, request):
         if request.method in ('PUT', 'POST'):
             request.__class__.data = property(data)
+        return None
+
+
+class MagicReverseMiddleware(object):
+
+    def process_request(self, request):
+        reverser = MagicReverser(request)
+        request.__class__.rev = reverser.rev
         return None
 
 
