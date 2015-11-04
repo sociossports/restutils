@@ -125,7 +125,7 @@ def view(request):
     r.add_link('self', Link(href='http://....', title='Self link'))
     r.add_link('parent', 'http://...')
     r.add_object('cr:item', other_representation)
-    return HttpResponse(r.to_json, content_type='application/hal+json')
+    return HttpResponse(r.to_json(), content_type='application/hal+json')
 ```
 
 ### Returning json responses ###
