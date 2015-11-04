@@ -1,4 +1,5 @@
 import json
+import pytz
 from urllib.parse import urlparse
 
 from django.conf import settings
@@ -11,11 +12,13 @@ from restutils.exceptions import BadRequest
 def iso_date(date):
     if date is not None:
         # http://stackoverflow.com/questions/5802108/how-to-check-if-a-datetime-object-is-localized-with-pytz
-        is_naive = date.tzinfo is None or date.tzinfo.utcoffset(d) is None
+        is_naive = date.tzinfo is None or date.tzinfo.utcoffset(date) is None
         if is_naive:
-            return date.strftime("%Y-%m-%dT%H:%M:%SZ")
-        else:
-            return date.strftime("%Y-%m-%dT%H:%M:%S%z")
+            if hasattr(settings, 'TIME_ZONE'):
+                date = pytz.timezone(settings.TIME_ZONE).localize(date)
+            else:
+                return date.strftime("%Y-%m-%dT%H:%M:%SZ")        
+        return date.strftime("%Y-%m-%dT%H:%M:%S%z")
 
 
 def extract_from_uri(uri, fields):
