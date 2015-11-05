@@ -264,7 +264,7 @@ extract_from_uri('http://api.example.com/persons/12/profiles/34/', 'person_id')
 Note that the function returns a dict when multiple kwargs are requested, but only the kwarg value when a single kwarg is requested.
 
 ### Returning ISO dates ###
-Convert a datetime to an ISO 8601 date string. If the datetime is naive, it will apply the timezone in settings.TIME_ZONE. If no zone has been set, it defaults to UTC:
+Convert a datetime to an ISO 8601 date string. If the datetime is naive, it will apply the timezone in settings.TIME_ZONE:
 
 ```
 #!python
