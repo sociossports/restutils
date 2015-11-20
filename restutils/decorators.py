@@ -10,7 +10,6 @@ from restutils.lib.json_as_html import create_html
 from restutils.lib.content_negotiation import best_content_type
 
 def _get_request(args):
-    print(args)
     try:
         if hasattr(args[0], 'META'):
             return args[0]
