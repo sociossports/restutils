@@ -4,7 +4,7 @@ from urllib.parse import urlparse
 from django.conf import settings
 from django.core.urlresolvers import resolve
 from django.http import Http404
-from django.utils.timezone import is_naive, make_aware
+from django.utils.timezone import is_naive, make_aware, get_current_timezone
 
 from restutils.exceptions import BadRequest
 
@@ -12,7 +12,7 @@ from restutils.exceptions import BadRequest
 def iso_date(date):
     if date is not None:
         if is_naive(date):
-            date = make_aware(date)
+            date = make_aware(date, get_current_timezone())
         return date.strftime("%Y-%m-%dT%H:%M:%S%z")
 
 
