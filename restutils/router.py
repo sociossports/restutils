@@ -2,7 +2,7 @@ import json
 import collections
 
 from django.views.decorators.csrf import csrf_exempt
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 from django.http import HttpResponse
 from django.http import HttpResponseNotAllowed
 from django.conf import settings
@@ -61,7 +61,7 @@ class RouteSet(object):
             url_patterns.append(url(named_routes[name],
                                     route.dispatch,
                                     name=full_name(self.name_prefix, name)))
-        return patterns('', *url_patterns)
+        return url_patterns
 
 
 class RoutableResourceMixin(object):
