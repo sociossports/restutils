@@ -3,8 +3,14 @@ from django.conf import settings
 from django.core.signals import got_request_exception
 from django.core.exceptions import ObjectDoesNotExist
 
+try:
+    from webargs import ValidationError
+    has_webargs = True
+except ImportError:
+    has_webargs = False
+    
 from restutils.hal import Representation
-from restutils.exceptions import ApiError, NotFound
+from restutils.exceptions import ApiError, NotFound, BadRequest
 from restutils.lib.json_as_html import create_html
 from restutils.lib.content_negotiation import best_content_type
 from restutils.magicreverse import MagicReverser
@@ -39,6 +45,10 @@ class VndErrorMiddleware(object):
 
         if issubclass(type(exception), ObjectDoesNotExist):
             exception = NotFound()
+            
+        if has_webargs and issubclass(type(exception), ValidationError):
+            exception = BadRequest(exception.messages) 
+            
         if not issubclass(type(exception), ApiError):
             return None
 
