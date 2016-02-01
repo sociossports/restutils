@@ -38,7 +38,7 @@ class VndErrorMiddleware(object):
     def process_exception(self, request, exception):
 
         if issubclass(type(exception), ObjectDoesNotExist):
-            exception = NotFound()
+            exception = NotFound(str(exception))
         if not issubclass(type(exception), ApiError):
             return None
 
