@@ -5,7 +5,7 @@ fallback_list = OrderedDict([
     ('vnd.error', 'application/vnd.error+json; charset=utf-8'),
     ('hal+json', 'application/hal+json; charset=utf-8'),
     ('json', 'application/json; charset=utf-8'),
-    ('html', 'text/html; charset=utf-8'),
+    # ('html', 'text/html; charset=utf-8'),
     ('default', 'application/json; charset=utf-8'),
 ])
 
