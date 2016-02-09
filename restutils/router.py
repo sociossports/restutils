@@ -66,12 +66,29 @@ class RouteSet(object):
 
 class RoutableResourceMixin(object):
 
+    def _set_request(self, request):
+        self.request = request
+
     def _create_routeset(self, handlers, default_name, name_prefix):
+
+        """We decorate each handler and add the _set_request function, so that before
+        the handler is actually called, it stores the request in a class property on
+        the class that extends the RoutableResourceMixin. The webargs module checks
+        for the existence of this property to determine whether the use_args decorator
+        is used on a function or a method. If we don't set it, it will think our
+        methods are ordinary functions and mix up the self and request parameters."""
+        def add_request_registration(handler_function):
+            def set_request_and_handle(request, *args, **kwargs):
+                self._set_request(request)
+                return handler_function(request, *args, **kwargs)  
+            return set_request_and_handle        
+
         routeset = RouteSet(name_prefix)
-        for handler, data in handlers.items():
+        for handler, data in handlers.items():          
             if hasattr(self, handler):
+                handle_func = getattr(self, handler);               
                 routeset.add_route(data.get('name', default_name), data['method'],
-                                   getattr(self, handler))
+                                   add_request_registration(handle_func))
         return routeset
 
     def get_list_handlers(self):

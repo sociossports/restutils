@@ -175,6 +175,8 @@ def view(request):
 ```
 ### Processing POST/PUT data in json format ###
 
+*Deprecated - use the [webargs](https://pypi.python.org/pypi/webargs) module instead*
+
 ```
 #!python
 
