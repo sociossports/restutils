@@ -32,7 +32,6 @@ def best_content_type(optimal, accept_header):
     parsed_header = parse(accept_header)
     # in Python3, keys() and values() are iterable views that cannot be indexed
     ct_keys = list(fallback_list.keys())
-    ct_values = list(fallback_list.values())
     try:
         start_at = ct_keys.index(optimal)
     except ValueError:
