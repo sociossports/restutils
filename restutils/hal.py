@@ -29,7 +29,7 @@ def _object_data(item):
     return None if item is None else item.data
 
 
-class Link(object):
+class Link:
 
     def set_value(self, key, value):
         if value is not None:
@@ -51,7 +51,7 @@ class Link(object):
         self.set_value('hreflang', hreflang)
 
 
-class Representation(object):
+class Representation:
 
     curies = collections.OrderedDict()
 
@@ -73,10 +73,11 @@ class Representation(object):
 
     def add_curie(self, name, href):
         if not self.has_curie(name):
-            self.add_link_list("curies", Link(
+            self.add_link_list('curies', Link(
                 href=full_uri(self.request, href),
                 name=name,
-                title="Compact URI for namespacing"))
+                # title='Compact URI for namespacing',
+            ))
 
     def add_curie_for_rel(self, rel):
         name = rel[:rel.index(':')]

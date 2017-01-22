@@ -5,7 +5,7 @@ from django.core.urlresolvers import resolve
 from restutils.lib.uri_tools import full_uri
 
 
-class MagicReverser(object):
+class MagicReverser:
 
     def __init__(self, request):
         self.request = request
@@ -14,8 +14,9 @@ class MagicReverser(object):
     def rev(self, route_name, **kwargs):
         self.kwargs.update(kwargs)
         filter_keys = get_resolver(None).reverse_dict[route_name][0][0][1]
-        filtered_kwargs = {filter_key:self.kwargs.get(filter_key)
-                           for filter_key in filter_keys}
+        filtered_kwargs = {
+            filter_key: self.kwargs.get(filter_key) for filter_key in filter_keys
+        }
         return full_uri(
             self.request,
             django_reverse(route_name, kwargs=filtered_kwargs))

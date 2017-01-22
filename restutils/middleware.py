@@ -1,5 +1,4 @@
 from django.http import HttpResponse
-from django.conf import settings
 from django.core.signals import got_request_exception
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -23,7 +22,7 @@ def data(self):
     return self._data_dict
 
 
-class RequestDataMiddleware(object):
+class RequestDataMiddleware:
 
     def process_request(self, request):
         if request.method in ('PUT', 'POST'):
@@ -31,7 +30,7 @@ class RequestDataMiddleware(object):
         return None
 
 
-class MagicReverseMiddleware(object):
+class MagicReverseMiddleware:
 
     def process_request(self, request):
         reverser = MagicReverser(request)
@@ -39,10 +38,9 @@ class MagicReverseMiddleware(object):
         return None
 
 
-class VndErrorMiddleware(object):
+class VndErrorMiddleware:
 
     def process_exception(self, request, exception):
-
         if issubclass(type(exception), ObjectDoesNotExist):
             exception = NotFound(str(exception))
 

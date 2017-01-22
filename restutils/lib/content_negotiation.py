@@ -16,12 +16,12 @@ def _parse_part(header_part):
     params = {}
     for param_string in sub_parts:
         param_parts = param_string.split('=')
-        # does not fit the "name=value" pattern, so skip it
+        # does not fit the 'name=value' pattern, so skip it
         if len(param_parts) != 2:
             continue
         param_parts = [part.strip() for part in param_parts]
         params[param_parts[0]] = param_parts[1]
-    return {"value": value, "params": params,}
+    return {'value': value, 'params': params,}
 
 
 def parse(header):

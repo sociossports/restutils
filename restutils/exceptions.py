@@ -20,21 +20,21 @@ class ApiError(Exception):
     For expressing a JSON Pointer (RFC6901) to a field in related resource
     (contained in the 'about' link relation) that this error is relevant for.
 
-    help (The "help" link relation is OPTIONAL.)
+    help (The 'help' link relation is OPTIONAL.)
     Links to a document describing the error. This has the same definition as
     the help link relation in the HTML5 specification
 
-    describes (The "describes" link relation is OPTIONAL.)
+    describes (The 'describes' link relation is OPTIONAL.)
     Present if this error representation describes another representation of
     the error on the server side. See RFC6892 for further details.
 
-    about (The "about" link relation is OPTIONAL.)
+    about (The 'about' link relation is OPTIONAL.)
     Links to a resource that this error is related to. See RFC6903 for further
     details.
     """
 
     status = 500
-    message = "Internal server error"
+    message = 'Internal server error'
 
     def __init__(self, message=None, status=None, logref=None, path=None,
                  about=None, describes=None, help=None):
@@ -58,14 +58,14 @@ class ApiError(Exception):
 
 class BadRequest(ApiError):
     status = 400
-    message = "Bad Request"
+    message = 'Bad Request'
 
 
 class NotFound(ApiError):
     status = 404
-    message = "Resource not found"
+    message = 'Resource not found'
 
 
 class Forbidden(ApiError):
     status = 403
-    message = "Access denied"
+    message = 'Access denied'
