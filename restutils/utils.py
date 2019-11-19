@@ -2,7 +2,7 @@ import json
 from urllib.parse import urlparse
 from isodate import datetime_isoformat
 from django.conf import settings
-from django.core.urlresolvers import resolve
+from django.urls import resolve
 from django.http import Http404
 from django.utils.timezone import is_naive, make_aware, get_current_timezone
 

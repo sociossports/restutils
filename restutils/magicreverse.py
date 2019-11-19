@@ -1,6 +1,6 @@
-from django.core.urlresolvers import get_resolver
-from django.core.urlresolvers import reverse as django_reverse
-from django.core.urlresolvers import resolve
+from django.urls import get_resolver
+from django.urls import reverse as django_reverse
+from django.urls import resolve
 
 from restutils.lib.uri_tools import full_uri
 
