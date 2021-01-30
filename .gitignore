@@ -1,0 +1,5 @@
+.idea/
+syntax: regexp
+.*\.log$
+
+venv/
