@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(
-    name='Django REST utils',
+    name='restutils',
     version='1.2',
     packages=[
         'restutils',
